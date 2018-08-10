@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>chat.evvs.ro</title>
+    <link  rel="stylesheet" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class=" row messageArea">
+        <div class="col-sm-4">
+            <h3>Online users</h3>
+            <ul class="list-group" id="users"></ul>
+        </div>
+    </div>
+</div>
+<div id="chat" class="container">
+    <h2 class="text-center">Discutati cu noi</h2>
+    <div id="userFormArea" class="row">
+        <div class="col-sm-12">
+            <form id="userForm">
+                <div class="form-group">
+                    <label for="username">Introduceti numele</label>
+                    <input  class="form-control" id="username">
+                    <button type="submit" value="Login" class="btn btn-dark" id="loginButton">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div  class="row messageArea">
+        <div class="col-sm-8 float-sm-right" id="chat-window">
+            <div id="output"></div>
+            <div id="feedback"></div>
+        </div>
+    </div>
+    <div class="row messageArea">
+        <div class="col-sm-8 float-sm-right">
+            <input id="name" type="text" placeholder="Name" />
+        </div>
+    </div>
+    <div class="row messageArea">
+        <div class="col-sm-8 float-sm-right" id="keyup">
+            <input id="message" type="text" placeholder="Message" />
+        </div>
+    </div>
+    <div class="row messageArea">
+        <div class="col-sm-8 float-sm-right">
+          <button class="btn btn-dark" id="send">Send</button>
+        </div>
+    </div>
+</div>
+
+<script src="/jquery.min.js"></script>
+<script  src="/js/bootstrap.js"></script>
+<script src="/socket.io.js"></script>
+<script src="/frontend.js"></script>
+</body>
+</html>

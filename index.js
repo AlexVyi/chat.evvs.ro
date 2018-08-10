@@ -22,7 +22,7 @@ io.sockets.on('connection',function (socket) {
   console.log('Connected: %s sockets connected', socket.id, connections.length)
 
   //disconnect
-  socket.on('disconnect',function (data) {
+  socket.on('disconnect',function (socket) {
     users.splice(users.indexOf(socket.username), 1)
     updateUsers()
     connections.splice(connections.indexOf(socket), 1)
@@ -32,7 +32,10 @@ io.sockets.on('connection',function (socket) {
   //new user
   socket.on('new user',function (data,callback) {
     callback(true);
-    socket.username = data;
+    socket.username = {
+      userId : socket.id,
+      username: data.username
+    }
     users.push(socket.username)
     updateUsers()
   });

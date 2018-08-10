@@ -24,6 +24,13 @@ loginBtn.addEventListener('click', function(event){
          chat_container.style.display = "flex"
 
      }
+     socket.emit('disconnected',function (socket) {
+       if(socket.id ===  undefined){
+         userFormArea.style.display = "flex";
+         chat_container.style.display = "none"
+       }
+
+     })
   });
   username.value = "";//after login clear the input
 });
@@ -61,12 +68,19 @@ key_up.addEventListener("keyup", function(event) {
 
 //front end new chat messages
 socket.on('new message', function(data){
+
   msg = Object.values(data.msg )
-  user = Object.values(data.user )
+  user = Object.values(data.user)
+  let username = '';
+  for(let i = 0;i<user.length;i++) {
+     username = user[1];
+
+   }
+
 
   feedback.innerHTML = ""//set the typing event to an empty string after the new message is displayed
 
-  chat.innerHTML += '<p><strong>' + user + ': </strong>' + msg + '</p>';
+  chat.innerHTML += '<p><strong>' + username + ': </strong>' + msg + '</p>';
 });
 
 // bring the typing event from the back to front
@@ -76,7 +90,11 @@ message.addEventListener('keypress', function(){
 
 //show whose typing to the client
 socket.on('typing', function(data){
-
   user = Object.values(data.user )
-  feedback.innerHTML = '<p><em>' + user + ' is typing a message...</em></p>';
+  let username = '';
+  for(let i = 0;i<user.length;i++) {
+    username = user[1];
+
+  }
+  feedback.innerHTML = '<p><em>' + username + ' is typing a message...</em></p>';
 });

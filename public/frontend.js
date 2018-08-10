@@ -3,14 +3,14 @@ const socket = io.connect();
 
 // Query DOM
 let message = document.getElementById('message'),
-  handle = document.getElementById('name'),
+  name = document.getElementById('name'),
   btn = document.getElementById('send'),
   loginBtn = document.getElementById('loginButton'),
-  output = document.getElementById('output'),
+  chat = document.getElementById('chat-window'),
   feedback = document.getElementById('feedback'),
-  keyup = document.getElementById('keyup'),
+  key_up = document.getElementById('key_up'),
   //userForm = document.getElementById('userForm'),
-  messageArea = document.getElementsByClassName('messageArea'),
+  chat_container = document.getElementById('chat_container'),
   userFormArea = document.getElementById('userFormArea'),
   users = document.getElementById('users'),
   username = document.getElementById('username')
@@ -21,60 +21,62 @@ loginBtn.addEventListener('click', function(event){
   socket.emit('new user', {username: username.value},function (data) {
      if (data){
        userFormArea.style.display = "none";
-       for(let i = 0;i < messageArea.length;i++){
-         messageArea[i].style.display = "block"
-       }
+         chat_container.style.display = "flex"
+
      }
   });
-  username.value = "";
+  username.value = "";//after login clear the input
 });
 
 // update the users list on the client
 socket.on('get users',function (data) {
      let html = ''
-     let placeholder = ''
      for(let i = 0;i < data.length; i++){
          html += '<li class="list-group-item">' + data[i].username + '</li>'
-         placeholder += data[i].username
-       }
+     }
 
      users.innerHTML = html
-     handle.setAttribute('placeholder', placeholder)
 });
-// Emit events from the button
-btn.addEventListener('click', function(){
+// Emit the message
+btn.addEventListener('click', function(event){
+  event.preventDefault();
   if(username) {
       socket.emit('send message', {
       message: message.value,
-      handle: handle.placeholder
     });
   }
   message.value = "";
 });
 
-//emit the same event from enter key
-keyup.addEventListener("keyup", function(event) {
+//emit the same message from enter key
+key_up.addEventListener("keyup", function(event) {
   event.preventDefault();
   if (event.keyCode === 13) {
     socket.emit('send message', {
       message: message.value,
-      handle: handle.placeholder
     });
     message.value = "";
   }
 });
-// bring the typing event from the back to front
-message.addEventListener('keypress', function(){
-  socket.emit('typing', handle.placeholder);
-})
-
 
 //front end new chat messages
 socket.on('new message', function(data){
-  feedback.innerHTML = ""
-  output.innerHTML += '<p><strong>' + data.handle + ': </strong>' + data.message + '</p>';
+  msg = Object.values(data.msg )
+  user = Object.values(data.user )
+
+  feedback.innerHTML = ""//set the typing event to an empty string after the new message is displayed
+
+  chat.innerHTML += '<p><strong>' + user + ': </strong>' + msg + '</p>';
 });
+
+// bring the typing event from the back to front
+message.addEventListener('keypress', function(){
+  socket.emit('typing', );
+})
+
 //show whose typing to the client
 socket.on('typing', function(data){
-  feedback.innerHTML = '<p><em>' + data + ' is typing a message...</em></p>';
+
+  user = Object.values(data.user )
+  feedback.innerHTML = '<p><em>' + user + ' is typing a message...</em></p>';
 });

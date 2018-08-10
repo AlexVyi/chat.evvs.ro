@@ -3,51 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>chat.evvs.ro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link  rel="stylesheet" href="/css/bootstrap.css"/>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
-    <div class=" row messageArea">
-        <div class="col-sm-4">
-            <h3>Online users</h3>
-            <ul class="list-group" id="users"></ul>
-        </div>
-    </div>
-</div>
-<div id="chat" class="container">
-    <h2 class="text-center">Discutati cu noi</h2>
     <div id="userFormArea" class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-6">
             <form id="userForm">
                 <div class="form-group">
                     <label for="username">Introduceti numele</label>
-                    <input  class="form-control" id="username">
+                    <input  class="form-control" id="username" autocomplete="off">
                     <button type="submit" value="Login" class="btn btn-dark" id="loginButton">Login</button>
                 </div>
             </form>
         </div>
     </div>
-    <div  class="row messageArea">
-        <div class="col-sm-8 float-sm-right" id="chat-window">
-            <div id="output"></div>
-            <div id="feedback"></div>
+</div>
+<div id="chat_container" class="container messageArea">
+    <div class="container" id="online_users_ctx">
+        <div class=" row messageArea">
+            <div class="col-sm-12">
+               <h3>Online users</h3>
+               <ul class="list-group" id="users"></ul>
+            </div>
         </div>
     </div>
-    <div class="row messageArea">
-        <div class="col-sm-8 float-sm-right">
-            <input id="name" type="text" placeholder="Name" />
-        </div>
-    </div>
-    <div class="row messageArea">
-        <div class="col-sm-8 float-sm-right" id="keyup">
-            <input id="message" type="text" placeholder="Message" />
-        </div>
-    </div>
-    <div class="row messageArea">
-        <div class="col-sm-8 float-sm-right">
-          <button class="btn btn-dark" id="send">Send</button>
+    <div class="container" id="messaging_area_ctx">
+        <div  class="row messageArea">
+            <div class="col-sm-12" id="chat-window">
+
+            </div>
+
+
+            <div class="col-sm-12" id="feedback">
+
+            </div>
+
+
+            <div class="col-sm-12" id="key_up">
+                <input id="message" type="text" placeholder="Message" />
+            </div>
+
+
+            <div class="col-sm-12">
+                <button class="btn btn-dark" id="send">Send</button>
+            </div>
         </div>
     </div>
 </div>

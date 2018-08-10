@@ -43,11 +43,11 @@ io.sockets.on('connection',function (socket) {
 
   //send the actual message
   socket.on('send message',function (data) {
-    io.sockets.emit('new message', data) //for later -- {message:data, user:data.username}
+    io.sockets.emit('new message',{msg:data, user:socket.username})
   });
 
   //show the users whose typing
   socket.on('typing', function (data) {
-    socket.broadcast.emit('typing', data)
+    socket.broadcast.emit('typing', {user:socket.username})
   })
 })

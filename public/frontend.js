@@ -1,5 +1,5 @@
 // Make connection
-const socket = io.connect();
+const socket = io.connect('/chat',console.log('connected'));
 
 // Query DOM
 let message = document.getElementById('message'),
@@ -25,7 +25,7 @@ loginBtn.addEventListener('click', function(event){
 
      }
      socket.emit('disconnected',function (socket) {
-       if(socket.id ===  undefined){
+       if(!socket.id){
          userFormArea.style.display = "flex";
          chat_container.style.display = "none"
        }
@@ -44,7 +44,7 @@ socket.on('get users',function (data) {
 
      users.innerHTML = html
 });
-// Emit the message
+// Emit the message to all users in the list
 btn.addEventListener('click', function(event){
   event.preventDefault();
   if(username) {
@@ -54,6 +54,15 @@ btn.addEventListener('click', function(event){
   }
   message.value = "";
 });
+
+/*emit the private message
+socket.on( 'sendToUser', function( msg, userId ){
+  socket.to( userId ).emit( 'messageFromUser',
+    { msg:data,
+    userId: socket.username.userId
+  });
+  console.log(userId)
+});*/
 
 //emit the same message from enter key
 key_up.addEventListener("keyup", function(event) {
@@ -73,14 +82,13 @@ socket.on('new message', function(data){
   user = Object.values(data.user)
   let username = '';
   for(let i = 0;i<user.length;i++) {
-     username = user[1];
-
+     username = user[i];
    }
 
 
   feedback.innerHTML = ""//set the typing event to an empty string after the new message is displayed
 
-  chat.innerHTML += '<p><strong>' + username + ': </strong>' + msg + '</p>';
+  chat.innerHTML += '<p><strong style="background-color: #575ed8">' + username + ': </strong>' + msg + '</p>';
 });
 
 // bring the typing event from the back to front
@@ -93,7 +101,7 @@ socket.on('typing', function(data){
   user = Object.values(data.user )
   let username = '';
   for(let i = 0;i<user.length;i++) {
-    username = user[1];
+    username = user[i];
 
   }
   feedback.innerHTML = '<p><em>' + username + ' is typing a message...</em></p>';

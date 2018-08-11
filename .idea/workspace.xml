@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85f246b2-4d88-49f6-abf1-0a60cbb7d85c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/frontend.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/frontend.js" afterDir="false" />
     </list>
@@ -44,14 +45,14 @@
         <counts>
           <entry key="css" value="242" />
           <entry key="html" value="809" />
-          <entry key="js" value="3525" />
+          <entry key="js" value="4282" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="242" />
           <entry key="HTML" value="809" />
-          <entry key="JavaScript" value="3525" />
+          <entry key="JavaScript" value="4282" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
@@ -71,8 +72,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="27" column="53" selection-start-line="27" selection-start-column="53" selection-end-line="27" selection-end-column="53" />
+            <state relative-caret-position="947">
+              <caret line="62" column="7" selection-start-line="62" selection-start-column="7" selection-end-line="62" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -80,8 +81,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="103">
-              <caret line="7" column="16" lean-forward="true" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
+            <state relative-caret-position="-983">
+              <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -89,8 +90,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/frontend.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="82" column="76" lean-forward="true" selection-start-line="82" selection-start-column="76" selection-end-line="82" selection-end-column="76" />
+            <state relative-caret-position="241">
+              <caret line="27" column="22" lean-forward="true" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
+              <folding>
+                <element signature="n#style#0;n#strong#0;n#p#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -110,6 +114,7 @@
     <findStrings>
       <find>margin_top</find>
       <find>class=&quot;col-sm-8 &quot;</find>
+      <find>var</find>
     </findStrings>
     <replaceStrings>
       <replace>class=&quot;col-sm-12&quot;</replace>
@@ -160,11 +165,6 @@
               <item name="chat.evvs.ro" type="b2602c69:ProjectViewProjectNode" />
               <item name="chat.evvs.ro" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="chat.evvs.ro" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chat.evvs.ro" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -203,12 +203,12 @@
       <updated>1533740216943</updated>
       <workItem from="1533740218221" duration="2432000" />
       <workItem from="1533743739515" duration="23636000" />
-      <workItem from="1533914155218" duration="11370000" />
+      <workItem from="1533914155218" duration="18455000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43184000" />
+    <option name="totallyTimeSpent" value="50269000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -236,7 +236,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Statistic" order="9" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.4989429" visible="true" weight="0.4213135" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.4989429" visible="true" weight="0.40024784" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5010571" side_tool="true" weight="0.27385378" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -255,8 +255,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="7" column="16" lean-forward="true" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
+        <state relative-caret-position="-983">
+          <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -269,15 +269,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="27" column="53" selection-start-line="27" selection-start-column="53" selection-end-line="27" selection-end-column="53" />
+        <state relative-caret-position="947">
+          <caret line="62" column="7" selection-start-line="62" selection-start-column="7" selection-end-line="62" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/frontend.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="82" column="76" lean-forward="true" selection-start-line="82" selection-start-column="76" selection-end-line="82" selection-end-column="76" />
+        <state relative-caret-position="241">
+          <caret line="27" column="22" lean-forward="true" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
+          <folding>
+            <element signature="n#style#0;n#strong#0;n#p#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

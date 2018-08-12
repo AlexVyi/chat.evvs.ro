@@ -23,12 +23,15 @@ nsp.on('connection',function (socket) {
   console.log('Connected: %s sockets connected, ', connections.length, 'socket id: ' , socket.id)
 
   //disconnect
-  socket.on('disconnect',function (socket) {
-    users.splice(users.indexOf(socket.username), 1)
-    updateUsers()
-    connections.splice(connections.indexOf(socket), 1)
-    console.log('Disconnected: %s sockets remained connected', connections.length)
+  socket.on('disconnect',function (data) {
+
+         users.splice(users.indexOf(socket.username), 1)
+         updateUsers()
+         connections.splice(connections.indexOf(socket), 1)
+         console.log('Disconnected: %s sockets remained connected', connections.length)
+
   });
+
 
   //new user
   socket.on('new user',function (data,callback) {
@@ -50,21 +53,23 @@ nsp.on('connection',function (socket) {
     nsp.emit('new message',{msg:data, user:socket.username})//assign to user both id and name, and emit the message to everyone including you
   });//socket.broadcast.emit ----assign to user both id and name and emit the message to everyone except you you
 
-  /*send the actual message to a specific user
-  socket.on( 'sendToUser', function( msg, userId ){
-    // try and get the socket from our connected list
-    const otherSocket = io.sockets.connected[userId]; // NOTE: sockets is the default "/" namespace
-    if( otherSocket )
-      otherSocket.emit( 'messageFromUser',
-        { msg:data,
-          userId: socket.username.userId
-        });
-    console.log(otherSocket)
-  });*/
-
 
   //show the users whose typing
   socket.on('typing', function (data) {
     socket.broadcast.emit('typing', {user:socket.username})
   })
 })
+
+
+
+/*send the actual message to a specific user
+socket.on( 'sendToUser', function( msg, userId ){
+  // try and get the socket from our connected list
+  const otherSocket = io.sockets.connected[userId]; // NOTE: sockets is the default "/" namespace
+  if( otherSocket )
+    otherSocket.emit( 'messageFromUser',
+      { msg:data,
+        userId: socket.username.userId
+      });
+  console.log(otherSocket)
+});*/

@@ -1,10 +1,10 @@
 // Make connection
-const socket = io.connect('/chat',{ forceNew: true },console.log('connected'))
+const socket = io.connect('/chat',console.log('connected'))
 
 
 // Query DOM
 let message = document.getElementById('message'),
-  name = document.getElementById('name'),
+  errorDiv = document.getElementById('error'),
   btn = document.getElementById('send'),
   loginBtn = document.getElementById('loginButton'),
   chat = document.getElementById('chat-window'),
@@ -14,7 +14,8 @@ let message = document.getElementById('message'),
   chat_container = document.getElementById('chat_container'),
   userFormArea = document.getElementById('userFormArea'),
   users = document.getElementById('users'),
-  username = document.getElementById('username')
+  username = document.getElementById('username'),
+  currentUser
 
 
 // update the users list on the client and login
@@ -31,12 +32,16 @@ socket.on('get users',function (data) {
 loginBtn.addEventListener('click', function(event){
   event.preventDefault()
   socket.emit('new user', {username: username.value},function (data) {
-     if (data){
+     if(data){
        userFormArea.style.display = "none";
-         chat_container.style.display = "flex"
-
+       chat_container.style.display = "flex";
+     }
+     else{
+       errorDiv.innerHTML = "Name can't be blank"
      }
   });
+
+  currentUser = username.value
   username.value = "";//after login clear the input
 });
 
@@ -61,13 +66,23 @@ socket.on('new message', function(data){
   user = Object.values(data.user)
   let username = '';
   for(let i = 0;i<user.length;i++) {
-    username = user[i];
+    username = user[i]
+    if(username === currentUser){
+      data.colorClass = "blueText";
+    } else{
+      data.colorClass = "greenText";
+
+    }
   }
 
-
   feedback.innerHTML = ""//set the typing event to an empty string after the new message is displayed
+  if(data.colorClass === 'blueText') {
+    chat.innerHTML += '<p id="blueParagraph"><strong class="' + data.colorClass + '">' + username + ': </strong>' + msg + '</p>';
+  }else{
+    chat.innerHTML += '<p id="greenParagraph"><strong class="' + data.colorClass + '">' + username + ': </strong>' + msg + '</p>';
 
-  chat.innerHTML += '<p><strong style="background-color: #575ed8">' + username + ': </strong>' + msg + '</p>';
+  }
+
 });
 
 // Emit the message to all users in the list

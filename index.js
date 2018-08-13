@@ -35,13 +35,18 @@ nsp.on('connection',function (socket) {
 
   //new user
   socket.on('new user',function (data,callback) {
-    callback(true);
+
     socket.username = {// make a js object and store in it the id and the name of the user
       userId : socket.id,
       username: data.username
     }
-    users.push(socket.username)
-    updateUsers()
+    if(data.username === ""){
+      callback(false);
+    }else {
+      callback(true);
+      users.push(socket.username)
+      updateUsers()
+    }
   });
   //helper function to update the users in the chat
   function updateUsers(){

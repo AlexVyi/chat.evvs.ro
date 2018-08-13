@@ -82,3 +82,10 @@ button{
     width: 100%;
     border-radius: 0 0 2px 2px;
 }
+.greenText{
+    color: greenyellow;
+}
+.blueText{
+    color:deepskyblue;
+    text-align: right!important;
+}

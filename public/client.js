@@ -18,12 +18,33 @@ let message = document.getElementById('message'),
   currentUser
 
 
+disconnectBtn.addEventListener('click', function(event){
+  event.preventDefault()
+  socket.emit('disconnect')
+})
+
+socket.on('disconnect', function (data) {
+  userFormArea.style.display = "flex";
+  chat_container.style.display = "none"
+  chat.innerHTML = null
+  socket.disconnect()
+  //localStorage.clear()
+  console.log('disconnected')
+  socket.open();
+
+});
+
+
 // update the users list on the client and login
 socket.on('get users',function (data) {
+
   let html = ''
-  for(let i = 0;i < data.length; i++){
-    html += '<li class="list-group-item">' + data[i].username + '</li>'
-  }
+  let current_user;
+    for (let i = 0; i < data.length; i++) {
+        //localStorage.setItem('users', JSON.stringify(data));
+        current_user = data[i].username
+        html += '<li class="list-group-item" style="color: rebeccapurple">' + current_user + '</li>'
+    }
 
   users.innerHTML = html
 });
@@ -35,9 +56,19 @@ loginBtn.addEventListener('click', function(event){
      if(data){
        userFormArea.style.display = "none";
        chat_container.style.display = "flex";
-     }
+     }/*else if(localStorage){
+       userFormArea.style.display = "none";
+       chat_container.style.display = "flex";
+       let html = '';
+       var users = JSON.parse(localStorage.getItem('users'));
+       for (let i = 0; i < users.length; i++) {
+         console.log(users[i].username)
+         html += '<li class="list-group-item">' + users[i].username + '</li>'
+       }
+       users.innerHTML = html
+     }*/
      else{
-       errorDiv.innerHTML = "Name can't be blank"
+       errorDiv.innerHTML = "Username exists or blank form submitted"
      }
   });
 
@@ -45,19 +76,6 @@ loginBtn.addEventListener('click', function(event){
   username.value = "";//after login clear the input
 });
 
-
-socket.on('disconnect', function (data) {
-    userFormArea.style.display = "flex";
-    chat_container.style.display = "none"
-    socket.disconnect()
-    console.log('disconnected')
-    socket.open();
-});
-
-disconnectBtn.addEventListener('click', function(event){
-  event.preventDefault()
-        socket.emit('disconnect')
-})
 
 //front end new chat messages
 socket.on('new message', function(data){
@@ -107,14 +125,7 @@ key_up.addEventListener("keyup", function(event) {
   }
 });
 
-
-
 // bring the typing event from the back to front
-message.addEventListener('keypress', function(){
-  socket.emit('typing', );
-})
-
-//show whose typing to the client
 socket.on('typing', function(data){
   user = Object.values(data.user )
   let username = '';
@@ -126,9 +137,14 @@ socket.on('typing', function(data){
 });
 
 
+//emit the typing event to the client
+message.addEventListener('keypress', function(){
+  socket.emit('typing', );
+})
 
-/*emit the private message
-socket.on( 'sendToUser', function( msg, userId ){
+
+
+/*socket.on( 'sendToUser', function( msg, userId ){
   socket.to( userId ).emit( 'messageFromUser',
     { msg:data,
     userId: socket.username.userId

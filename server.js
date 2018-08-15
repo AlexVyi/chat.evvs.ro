@@ -9,7 +9,8 @@ const users = [];
 const connections = [];
 
 app.use(express.static(__dirname + '/node_modules/jquery/dist'));
-app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
+app.use(express.static(__dirname + '/node_modules/bootstrap/dist/js'));
+app.use(express.static(__dirname + '/node_modules/bootstrap/dist/'));
 app.use(express.static(__dirname + '/node_modules/socket.io-client/dist'));
 app.use(express.static('public'))
 
@@ -24,24 +25,33 @@ nsp.on('connection',function (socket) {
 
   //disconnect
   socket.on('disconnect',function (data) {
+         socket.disconnect()
+          if(socket.username === undefined){//on disconnect we don't have access to socket.username, so if we use directly socket.username.username, we crash the server
+            return
+          }else {
+            users.splice(users.indexOf(socket.username.username),1)
+            updateUsers()
+          }
 
-         users.splice(users.indexOf(socket.username), 1)
-         updateUsers()
          connections.splice(connections.indexOf(socket), 1)
          console.log('Disconnected: %s sockets remained connected', connections.length)
-
   });
 
 
   //new user
   socket.on('new user',function (data,callback) {
+     for(let i = 0;i<users.length;i++){
+      if(users[i].username === data.username){
+        return callback(false)
 
+      }
+    }
     socket.username = {// make a js object and store in it the id and the name of the user
       userId : socket.id,
       username: data.username
     }
     if(data.username === ""){
-      callback(false);
+      return callback(false);
     }else {
       callback(true);
       users.push(socket.username)
@@ -63,18 +73,13 @@ nsp.on('connection',function (socket) {
   socket.on('typing', function (data) {
     socket.broadcast.emit('typing', {user:socket.username})
   })
-})
 
 
+  /*socket.on( 'sendToUser', function( msg, userId ){
+    socket.to( userId ).emit( 'messageFromUser', msg, socket.id );
+  });*/
 
-/*send the actual message to a specific user
-socket.on( 'sendToUser', function( msg, userId ){
-  // try and get the socket from our connected list
-  const otherSocket = io.sockets.connected[userId]; // NOTE: sockets is the default "/" namespace
-  if( otherSocket )
-    otherSocket.emit( 'messageFromUser',
-      { msg:data,
-        userId: socket.username.userId
-      });
-  console.log(otherSocket)
-});*/
+
+})//nsp connection
+
+

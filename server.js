@@ -23,27 +23,32 @@ nsp.on('connection',function (socket) {
   connections.push(socket)
   console.log('Connected: %s sockets connected, ', connections.length, 'socket id: ' , socket.id)
 
+
   //disconnect
   socket.on('disconnect',function (data) {
          socket.disconnect()
           if(socket.username === undefined){//on disconnect we don't have access to socket.username, so if we use directly socket.username.username, we crash the server
-            return
+            connections.splice(connections.indexOf(socket), 1)
+            console.log('Disconnected: %s sockets remained connected', connections.length)
+            return  socket.disconnect()
           }else {
-            users.splice(users.indexOf(socket.username.username),1)
+            connections.splice(connections.indexOf(socket), 1)
+            console.log('Disconnected: %s sockets remained connected', connections.length)
+            users.splice(users.indexOf(socket.username),1)
             updateUsers()
+            console.log(users)
           }
 
-         connections.splice(connections.indexOf(socket), 1)
-         console.log('Disconnected: %s sockets remained connected', connections.length)
+
   });
 
 
   //new user
   socket.on('new user',function (data,callback) {
+    //console.log(users)
      for(let i = 0;i<users.length;i++){
       if(users[i].username === data.username){
         return callback(false)
-
       }
     }
     socket.username = {// make a js object and store in it the id and the name of the user
@@ -56,6 +61,7 @@ nsp.on('connection',function (socket) {
       callback(true);
       users.push(socket.username)
       updateUsers()
+      console.log(users)
     }
   });
   //helper function to update the users in the chat
@@ -69,7 +75,7 @@ nsp.on('connection',function (socket) {
   });//socket.broadcast.emit ----assign to user both id and name and emit the message to everyone except you you
 
 
-  //show the users whose typing
+  //show the users which one is typing
   socket.on('typing', function (data) {
     socket.broadcast.emit('typing', {user:socket.username})
   })

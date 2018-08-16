@@ -34,19 +34,36 @@ socket.on('disconnect', function (data) {
   socket.open();
 
 });
-socket.on('new user connected',function (data) {
 
-})
 
 // update the users list on the client and login
 socket.on('get users',function (data) {
-
-  let html = ''
-  let current_user;
+  let html = '';
     for (let i = 0; i < data.length; i++) {
         //localStorage.setItem('users', JSON.stringify(data));
-        current_user = data[i].username
-        html += '<li class="list-group-item" style="color: rebeccapurple">' + current_user + '</li>'
+      //begin notifications
+      let Notification = window.Notification || window.mozNotification || window.webkitNotification;
+
+      if (!("Notification" in window)) {
+        console.log("This browser does not support desktop notification");
+      }
+      // Let's check whether notification permissions have already been granted
+      else if (Notification.permission === "granted") {
+        // If it's okay let's create a notification
+        let notification = new Notification("Hi there!" + data[i].username + " " + "just connected");
+      }
+      // Otherwise, we need to ask the user for permission
+      else if (Notification.permission !== "denied") {
+        Notification.requestPermission(function (permission) {
+          // If the user accepts, let's create a notification
+          if (permission === "granted") {
+            let notification = new Notification("Hi there!" + data[i].username + " " + "just connected");
+          }
+        });
+      }
+      //end notification
+
+        html += '<li class="list-group-item" style="color: rebeccapurple">' + data[i].username + '</li>'
     }
 
   users.innerHTML = html
@@ -61,17 +78,7 @@ loginBtn.addEventListener('click', function(event){
        music.innerHTML= "<source type=\"audio/wav\" src=\""+sound_file+"\" hidden=\"true\" autostart=\"true\" loop=\"false\" />";
        userFormArea.style.display = "none";
        chat_container.style.display = "flex";
-     }/*else if(localStorage){
-       userFormArea.style.display = "none";
-       chat_container.style.display = "flex";
-       let html = '';
-       var users = JSON.parse(localStorage.getItem('users'));
-       for (let i = 0; i < users.length; i++) {
-         console.log(users[i].username)
-         html += '<li class="list-group-item">' + users[i].username + '</li>'
-       }
-       users.innerHTML = html
-     }*/
+     }
      else{
        errorDiv.innerHTML = "Username exists or blank form submitted"
      }
@@ -156,3 +163,15 @@ message.addEventListener('keypress', function(){
   });
   console.log(userId)
 });*/
+
+/*else if(localStorage){
+       userFormArea.style.display = "none";
+       chat_container.style.display = "flex";
+       let html = '';
+       var users = JSON.parse(localStorage.getItem('users'));
+       for (let i = 0; i < users.length; i++) {
+         console.log(users[i].username)
+         html += '<li class="list-group-item">' + users[i].username + '</li>'
+       }
+       users.innerHTML = html
+     }*/

@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <title>chat.evvs.ro</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link  rel="stylesheet" href="/css/bootstrap.css"/>
+    <link  rel="stylesheet" href="/bootstrap.css"/>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body onload="scrollChatContent()">
 
 <div class="container">
     <div id="userFormArea" class="row">
@@ -24,6 +24,7 @@
     </div>
 </div>
 <div id="chat_container" class="container messageArea">
+    <audio controls autoplay id="play_sound" style="display: none"></audio>
     <div class="container" id="online_users_ctx">
         <div class=" row messageArea">
             <div class="col-sm-12">
@@ -32,7 +33,7 @@
             </div>
         </div>
     </div>
-    <div class="container" id="messaging_area_ctx">
+    <div class="container" id="messaging_area_ctx" >
         <div  class="row messageArea">
             <div class="col-sm-12" id="chat-window">
 
@@ -61,5 +62,6 @@
 <script  src="/bootstrap.js"></script>
 <script src="/socket.io.js"></script>
 <script src="/client.js"></script>
+<script src="/pretty.js"></script>
 </body>
 </html>

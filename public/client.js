@@ -15,6 +15,7 @@ let message = document.getElementById('message'),
   userFormArea = document.getElementById('userFormArea'),
   users = document.getElementById('users'),
   username = document.getElementById('username'),
+  music = document.getElementById('play_sound'),
   currentUser
 
 
@@ -33,7 +34,9 @@ socket.on('disconnect', function (data) {
   socket.open();
 
 });
+socket.on('new user connected',function (data) {
 
+})
 
 // update the users list on the client and login
 socket.on('get users',function (data) {
@@ -52,8 +55,10 @@ socket.on('get users',function (data) {
 //login
 loginBtn.addEventListener('click', function(event){
   event.preventDefault()
+  var sound_file = "sound/CALC.WAV"
   socket.emit('new user', {username: username.value},function (data) {
      if(data){
+       music.innerHTML= "<source type=\"audio/wav\" src=\""+sound_file+"\" hidden=\"true\" autostart=\"true\" loop=\"false\" />";
        userFormArea.style.display = "none";
        chat_container.style.display = "flex";
      }/*else if(localStorage){

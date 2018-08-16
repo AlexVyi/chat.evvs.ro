@@ -10,7 +10,7 @@ const connections = [];
 
 app.use(express.static(__dirname + '/node_modules/jquery/dist'));
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist/js'));
-app.use(express.static(__dirname + '/node_modules/bootstrap/dist/'));
+app.use(express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use(express.static(__dirname + '/node_modules/socket.io-client/dist'));
 app.use(express.static('public'))
 

@@ -8,6 +8,8 @@ let message = document.getElementById('message'),
   btn = document.getElementById('send'),
   loginBtn = document.getElementById('loginButton'),
   chat = document.getElementById('chat-window'),
+  incoming = document.getElementById('received_width_msg'),
+  outgoing = document.getElementById('sent_msg'),
   feedback = document.getElementById('feedback'),
   key_up = document.getElementById('key_up'),
   disconnectBtn = document.getElementById('disconnect'),
@@ -16,6 +18,7 @@ let message = document.getElementById('message'),
   users = document.getElementById('users'),
   username = document.getElementById('username'),
   music = document.getElementById('play_sound'),
+  list_item_current_user = document.getElementById('current_user'),
   currentUser
 
 
@@ -40,6 +43,7 @@ socket.on('disconnect', function (data) {
 socket.on('get users',function (data) {
   let html = '';
     for (let i = 0; i < data.length; i++) {
+      let current_user = data[i].userId
         //localStorage.setItem('users', JSON.stringify(data));
       //begin notifications
       let Notification = window.Notification || window.mozNotification || window.webkitNotification;
@@ -63,10 +67,11 @@ socket.on('get users',function (data) {
       }
       //end notification
 
-        html += '<li class="list-group-item" style="color: rebeccapurple">' + data[i].username + '</li>'
-    }
+        html += '<li class="list-group-item" id="current_user">' + data[i].username + '</li>'
 
+    }
   users.innerHTML = html
+
 });
 
 //login
@@ -98,18 +103,19 @@ socket.on('new message', function(data){
   for(let i = 0;i<user.length;i++) {
     username = user[i]
     if(username === currentUser){
-      data.colorClass = "blueText";
+      data.outgoingClass = "outgoingText";
+
     } else{
-      data.colorClass = "greenText";
+      data.incomingClass = "incomingText";
 
     }
   }
 
   feedback.innerHTML = ""//set the typing event to an empty string after the new message is displayed
-  if(data.colorClass === 'blueText') {
-    chat.innerHTML += '<p id="blueParagraph"><strong class="' + data.colorClass + '">' + username + ': </strong>' + msg + '</p>';
+  if(data.outgoingClass === 'outgoingText') {
+    outgoing.innerHTML += '<p id="outgoingParagraph"><strong class="' + data.outgoingClass + '">' + username + ': </strong>' + msg + '</p>';
   }else{
-    chat.innerHTML += '<p id="greenParagraph"><strong class="' + data.colorClass + '">' + username + ': </strong>' + msg + '</p>';
+    incoming.innerHTML += '<p id="incomingParagraph"><strong class="' + data.incomingClass + '">' + username + ': </strong>' + msg + '</p>';
 
   }
 

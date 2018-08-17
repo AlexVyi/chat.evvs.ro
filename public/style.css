@@ -1,91 +1,121 @@
-html body{
-    height:100%;
-    width:100%;
+body{
+    margin-top:50px;
 }
-
 #chat_container{
+    max-width:1170px;
+    margin:auto;
     display: none;
     height: 75%;
     max-height: inherit;
-    margin: 30px auto;
     border: 1px solid #ddd;
     box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
     border-radius: 2px;
 }
-@media screen and (max-width: 600px) {
-    #chat_container{
-        height: 100vh;!important;
-    }
-    #online_users_ctx{
-        width: 100%;!important;
-    }
 
-    #messaging_area_ctx{
-        width: 100%;!important;
-    }
+#messaging_area_ctx{padding: 0 0 50px 0;}
+.msg_history {
+    max-height: 516px;
+    overflow-y: auto;
 }
+
 #online_users_ctx{
-    flex: 30%;
+    background: #f8f8f8 none repeat scroll 0 0;
+    float: left;
+    overflow: hidden;
+    width: 25%; border-right:1px solid #c4c4c4;
 }
 
-#messaging_area_ctx{
-    flex: 70%;
+.received_msg {
+    display: inline-block;
+    padding: 0 0 0 10px;
+    vertical-align: top;
+    width: 92%;
 }
 
-#chat-window{
-    height: 500px;
-    max-height: 500px;
-    overflow: auto;
-    background: #f9f9f9;
+.received_width_msg { width: 57%;}
+.messages {
+    float: left;
+    padding: 30px 15px 0 25px;
+    width: 60%;
 }
+ #sent_msg  {
+    background:none repeat scroll 0 0;
+    border-radius: 3px;
+    font-size: 14px;
+    margin: 0; color:#fff;
+    padding: 5px 10px 5px 12px;
+    width:50%;
+ }
+ #outgoingParagraph {
+    background: #05728f none repeat scroll 0 0;
+    border-radius: 3px;
+    font-size: 14px;
+    margin: 0; color:#fff;
+    padding: 5px 10px 5px 12px;
+    width:100%;
+ }
 
-#output p{
-    padding: 14px 0;
-    margin: 0 20px;
-    border-bottom: 1px solid #e9e9e9;
-    color: #555;
-}
-
-#feedback p{
-    color: #aaa;
-    padding: 14px 0;
-    margin: 0 20px;
-}
-
-#output strong{
-    color: #575ed8;
-}
-
-label{
-    box-sizing: border-box;
-    display: block;
-    padding: 10px 20px;
-}
-
-input{
-    padding: 10px 20px;
-    box-sizing: border-box;
-    background: #eee;
-    border: 0;
-    display: block;
+ #received_width_msg {
+    background:none repeat scroll 0 0;
+    border-radius: 3px;
+    font-size: 14px;
+    margin: 0;
+    padding: 5px 10px 5px 12px;
+    width: 50%;
+ }
+ #incomingParagraph{
+    background: #ebebeb none repeat scroll 0 0;
+    border-radius: 3px;
+    color: #646464;
+    font-size: 14px;
+    margin: 0;
+    padding: 5px 10px 5px 12px;
     width: 100%;
-    border-bottom: 1px solid #eee;
-    font-size: 16px;
+ }
+
+
+.outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
+.sent_msg {
+    float: right;
+    width: 46%;
 }
 
-button{
-    background: #575ed8;
+.input_msg_write input {
+    outline: none;
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: medium none;
+    color: #4c4c4c;
+    font-size: 15px;
+    min-height: 48px;
+    width: 100%;
+}
+
+.type_msg {border-bottom: 1px solid #c4c4c4;position: relative;}
+.msg_send_btn {
+    background: #05728f none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 50%;
     color: #fff;
-    font-size: 18px;
-    border: 0;
-    padding: 12px 0;
-    width: 100%;
-    border-radius: 0 0 2px 2px;
+    cursor: pointer;
+    font-size: 17px;
+    height: 43px;
+    position: absolute;
+    right:2px;
+    top: 3px;
+    width: 43px;
 }
-.greenText{
-    color: greenyellow;
+#disconnect{
+    background: transparent;
+    border: medium none;
+    color: #05728f;
+    cursor: pointer;
+    font-size: 25px;
+
 }
-.blueText{
-    color:deepskyblue;
-    text-align: right!important;
+.fa-sign-out:hover:after{
+    content: 'Logout';
+}
+
+.list-group-item{
+    padding: 0.75rem 0.25rem;
 }

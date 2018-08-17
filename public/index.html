@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link  rel="stylesheet" href="/bootstrap.css"/>
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
 </head>
 <body onload="scrollChatContent()">
 
@@ -29,14 +30,26 @@
         <div class=" row messageArea">
             <div class="col-sm-12">
                <h3>Online users</h3>
-               <ul class="list-group" id="users"></ul>
+                <ul class="list-group" id="users"></ul>
+                <button class="btn" id="disconnect" title="Logout"><i class="fa fa-sign-out"></i></button>
             </div>
         </div>
     </div>
-    <div class="container" id="messaging_area_ctx" >
-        <div  class="row messageArea">
+    <div class="container messages" id="messaging_area_ctx" >
+        <div  class="row messageArea msg_history">
             <div class="col-sm-12" id="chat-window">
+                <div class="incoming_msg">
+                    <div class="received_msg">
+                        <div class="received_width_msg" id="received_width_msg">
 
+                        </div>
+                    </div>
+                    <div class="outgoing_msg">
+                        <div class="sent_msg" id="sent_msg">
+
+                        </div>
+                    </div>
+                </div>
             </div>
 
 
@@ -45,16 +58,15 @@
             </div>
 
 
-            <div class="col-sm-12" id="key_up">
-                <input id="message" type="text" autocomplete="off" placeholder="Message" />
+            <div class="col-sm-12 type_msg" id="key_up">
+                <div class="input_msg_write">
+                   <input id="message" type="text" autocomplete="off" class="write_msg" placeholder="Type a message" />
+                </div>
+                <button class="btn msg_send_btn" id="send"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+
             </div>
 
-
-            <div class="col-sm-12">
-                <button class="btn btn-dark" id="send">Send</button>
-            </div>
         </div>
-        <button class="btn btn-dark" id="disconnect">Logout</button>
     </div>
 </div>
 

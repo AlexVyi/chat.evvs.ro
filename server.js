@@ -51,6 +51,7 @@ nsp.on('connection',function (socket) {
         return callback(false)
       }
     }
+
     socket.username = {// make a js object and store in it the id and the name of the user
       userId : socket.id,
       username: data.username
@@ -62,6 +63,7 @@ nsp.on('connection',function (socket) {
       users.push(socket.username)
       updateUsers()
       console.log(users)
+
     }
   });
   //helper function to update the users in the chat

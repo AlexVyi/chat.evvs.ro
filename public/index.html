@@ -12,13 +12,15 @@
 
 <div class="container">
     <div id="userFormArea" class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-12">
             <div id="error"></div>
             <form id="userForm">
                 <div class="form-group">
                     <label for="username">Introduceti numele</label>
-                    <input  class="form-control" id="username" autocomplete="off" maxlength="25" required>
-                    <button type="submit" value="Login" class="btn btn-dark" id="loginButton">Login</button>
+                    <div id="loginBorder">
+                      <input  class="form-control" id="username" autocomplete="off" maxlength="25" required>
+                    </div>
+                    <button type="submit" value="Login" class="btn" id="loginButton"><i class="fa fa-commenting"></i>Login</button>
                 </div>
             </form>
         </div>
@@ -44,10 +46,10 @@
 
                         </div>
                     </div>
-                    <div class="outgoing_msg">
-                        <div class="sent_msg" id="sent_msg">
+                </div>
+                <div class="outgoing_msg">
+                    <div class="sent_msg" id="sent_msg">
 
-                        </div>
                     </div>
                 </div>
             </div>

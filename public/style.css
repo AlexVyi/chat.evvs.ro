@@ -1,6 +1,53 @@
 body{
     margin-top:50px;
 }
+#userFormArea{
+    margin: auto;
+    width: 50%;
+}
+#error{
+    border-radius: 35px;
+    color: red;
+    font-size: 23px;
+    padding: 10px 21px;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+}
+#userForm{
+    border: 2px solid #ff6701;
+    border-radius: 35px;
+    color: #ff6701;
+    font-size: 23px;
+    padding: 10px 21px;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+}
+#loginBorder{
+    border-bottom:1px solid black;
+}
+#username{
+    background-color: transparent;
+    outline: none;
+    color: #ff6701;
+   border: medium none;
+}
+.form-control{
+    color: #ff6701;
+    background-color: transparent;
+    border: medium none;
+}
+.form-control:focus{
+    box-shadow:none;
+    outline-style: none;
+}
+#loginButton{
+    background-color: transparent;
+}
+.fa.fa-commenting{
+    color: #ff6701;
+    font-size: 27px;
+}
 #chat_container{
     max-width:1170px;
     margin:auto;
@@ -50,7 +97,7 @@ body{
     background: #05728f none repeat scroll 0 0;
     border-radius: 3px;
     font-size: 14px;
-    margin: 0; color:#fff;
+    margin: 2px; color:#fff;
     padding: 5px 10px 5px 12px;
     width:100%;
  }
@@ -68,7 +115,7 @@ body{
     border-radius: 3px;
     color: #646464;
     font-size: 14px;
-    margin: 0;
+    margin: 2px;
     padding: 5px 10px 5px 12px;
     width: 100%;
  }
@@ -112,9 +159,10 @@ body{
     font-size: 25px;
 
 }
-.fa-sign-out:hover:after{
+#disconnect:hover::after{
     content: 'Logout';
 }
+
 
 .list-group-item{
     padding: 0.75rem 0.25rem;

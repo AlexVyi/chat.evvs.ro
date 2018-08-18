@@ -19,15 +19,20 @@ let message = document.getElementById('message'),
   username = document.getElementById('username'),
   music = document.getElementById('play_sound'),
   list_item_current_user = document.getElementById('current_user'),
+  Notification = window.Notification || window.mozNotification || window.webkitNotification,
   currentUser
 
 
 disconnectBtn.addEventListener('click', function(event){
   event.preventDefault()
   socket.emit('disconnect')
+
 })
 
-socket.on('disconnect', function (data) {
+socket.on('disconnect', function (reason) {//see docs for this parameter and how to use it
+  if(reason ===  "io client disconnect"){
+    Notification = new Notification("Hi there! " + currentUser + " " + "just disconnected");
+  }
   userFormArea.style.display = "flex";
   chat_container.style.display = "none"
   chat.innerHTML = null
@@ -43,32 +48,8 @@ socket.on('disconnect', function (data) {
 socket.on('get users',function (data) {
   let html = '';
     for (let i = 0; i < data.length; i++) {
-      let current_user = data[i].userId
         //localStorage.setItem('users', JSON.stringify(data));
-      //begin notifications
-      let Notification = window.Notification || window.mozNotification || window.webkitNotification;
-
-      if (!("Notification" in window)) {
-        console.log("This browser does not support desktop notification");
-      }
-      // Let's check whether notification permissions have already been granted
-      else if (Notification.permission === "granted") {
-        // If it's okay let's create a notification
-        let notification = new Notification("Hi there!" + data[i].username + " " + "just connected");
-      }
-      // Otherwise, we need to ask the user for permission
-      else if (Notification.permission !== "denied") {
-        Notification.requestPermission(function (permission) {
-          // If the user accepts, let's create a notification
-          if (permission === "granted") {
-            let notification = new Notification("Hi there!" + data[i].username + " " + "just connected");
-          }
-        });
-      }
-      //end notification
-
-        html += '<li class="list-group-item" id="current_user">' + data[i].username + '</li>'
-
+       html += '<li class="list-group-item">' + data[i].username + '</li>'
     }
   users.innerHTML = html
 
@@ -83,6 +64,24 @@ loginBtn.addEventListener('click', function(event){
        music.innerHTML= "<source type=\"audio/wav\" src=\""+sound_file+"\" hidden=\"true\" autostart=\"true\" loop=\"false\" />";
        userFormArea.style.display = "none";
        chat_container.style.display = "flex";
+       //begin notifications
+       if (!("Notification" in window)) {
+         console.log("This browser does not support desktop notification");
+       }
+       // Let's check whether notification permissions have already been granted
+       else if (Notification.permission === "granted") {
+         // If it's okay let's create a notification
+         let notification = new Notification("Hi there! " + currentUser + " " + "just connected");
+       }
+       // Otherwise, we need to ask the user for permission
+       else if (Notification.permission !== "denied") {
+         Notification.requestPermission(function (permission) {
+           // If the user accepts, let's create a notification
+           if (permission === "granted") {
+             let notification = new Notification("Hi there! " + currentUser + " " + "just connected");
+           }
+         });
+       }
      }
      else{
        errorDiv.innerHTML = "Username exists or blank form submitted"
@@ -96,7 +95,7 @@ loginBtn.addEventListener('click', function(event){
 
 //front end new chat messages
 socket.on('new message', function(data){
-
+  //array_messages = []
   msg = Object.values(data.msg )
   user = Object.values(data.user)
   let username = '';
@@ -104,16 +103,17 @@ socket.on('new message', function(data){
     username = user[i]
     if(username === currentUser){
       data.outgoingClass = "outgoingText";
-
+      if(username){
+      }
     } else{
       data.incomingClass = "incomingText";
 
     }
   }
-
   feedback.innerHTML = ""//set the typing event to an empty string after the new message is displayed
   if(data.outgoingClass === 'outgoingText') {
     outgoing.innerHTML += '<p id="outgoingParagraph"><strong class="' + data.outgoingClass + '">' + username + ': </strong>' + msg + '</p>';
+    //array_messages.push(outgoing.innerHTML)
   }else{
     incoming.innerHTML += '<p id="incomingParagraph"><strong class="' + data.incomingClass + '">' + username + ': </strong>' + msg + '</p>';
 

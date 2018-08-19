@@ -55,7 +55,7 @@ nsp.on('connection',function (socket) {
     socket.username = {// make a js object and store in it the id and the name of the user
       userId : socket.id,
       username: data.username
-    }
+    };
     if(data.username === ""){
       return callback(false);
     }else {
@@ -73,7 +73,12 @@ nsp.on('connection',function (socket) {
 
   //send the actual message to the whole list of users
   socket.on('send message',function (data) {//instead of io.sockets.emit, who defaults to '/' as in localhost:4000, we write nsp.on. and we get '/chat as in localhost:4000/chat
-    nsp.emit('new message',{msg:data, user:socket.username})//assign to user both id and name, and emit the message to everyone including you
+    new_message = {
+      msg:{time: new Date().getTime(), data},
+      user:socket.username
+    };
+    nsp.emit('new_message',new_message)//assign to user both id and name, and emit the message to everyone including you
+    //console.log(new_message)
   });//socket.broadcast.emit ----assign to user both id and name and emit the message to everyone except you you
 
 

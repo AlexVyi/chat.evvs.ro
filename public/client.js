@@ -117,7 +117,6 @@ socket.on('new_message', function(data){
 	let msg;
 	let time;
 	let username = '';
-	let times_array = [];
 	user = Object.values(data.user);
 	let new_message = Object.values(data);//retrieve time,data(the message itself),userId and username
 
@@ -127,15 +126,10 @@ socket.on('new_message', function(data){
 		if(new_message[0].time) {
 			msg = new_message[0].data.message;
             time = time_now(new_message[0].time);
-            times_array.push(time)
 		}
-		function myFunction() {
-			 return times_array.sort(function(a, b){return a - b});
-		}
-      myFunction()
 
 	}
-	//console.log(msg)
+
 	for(let i = 0;i<user.length;i++) {
 		username = user[i];
 
@@ -150,15 +144,23 @@ socket.on('new_message', function(data){
 	feedback.innerHTML = "";//set the typing event to an empty string after the new message is displayed
 
 
-	    if (data.outgoingClass === 'outgoingText') {
-		    let timeOut = '<span id="timeOut">' + time + '</span>';
-		    outgoing.innerHTML += '<p id="outgoingParagraph"><strong class="' + data.outgoingClass + '">' + username + ': </strong>' + msg + '<br>' + timeOut + '</p>';
-	    }
-	    else {
-		    let timeIn = '<span id="timeIn">' + time + '</span>';
-		    incoming.innerHTML += '<p id="incomingParagraph"><strong class="' + data.incomingClass + '">' + username + ': </strong>' + msg + '<br>' + timeIn + '</p>';
-	    }
-   console.log(times_array)
+	     if (data.outgoingClass === 'outgoingText') {
+		     let timeOut = '<span id="timeOut">' + time + '</span>';
+		     outgoing.innerHTML += '<p id="outgoingParagraph"><strong class="' + data.outgoingClass + '">' + username + ': </strong>'+ msg  + '<br>' + timeOut + '</p>';
+		     $(document).ready(function(){
+			     $("H5").insertAfter("H4");
+		     });
+	     }
+	     else {
+		     let timeIn = '<span id="timeIn">' + time + '</span>';
+		     incoming.innerHTML += '<p id="incomingParagraph"><strong class="' + data.incomingClass + '">' + username + ': </strong>' + msg + '<br>' + timeIn + '</p>';
+		     $(document).ready(function(){
+			     $("H4").insertAfter("H5");
+		     });
+
+	     }
+
+    //console.log(msg)
 
 	/*for(let i = 0;i<array_messages.length;i++){
 	  if(array_messages[i] === out){
@@ -177,6 +179,7 @@ btn.addEventListener('click', function(event){
 			message: message.value,
 		});
 	}
+
 	message.value = "";
 });
 
@@ -205,7 +208,7 @@ socket.on('typing', function(data){
 
 //emit the typing event to the client
 message.addEventListener('keypress', function(){
-	socket.emit('typing', );
+	socket.emit('typing');
 });
 
 
